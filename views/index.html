@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>학교-집 통학 시스템</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f4f4f9; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block; }
+        #token-display { word-break: break-all; color: blue; margin: 10px 0; font-size: 0.8em; }
+        .success { color: green; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🚌 통학 버스 관리 시스템</h1>
+    <div class="card">
+        <button onclick="login()">로그인 (일반 티켓 발급)</button>
+        <hr>
+        <p>내 티켓(JWT):</p>
+        <div id="token-display">로그인 전</div>
+        <button onclick="checkBoard()">급행 버스 탑승 시도</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        async function login() {
+            const res = await fetch('/login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({username: "student_25"}) });
+            const data = await res.json();
+            document.getElementById('token-display').innerText = document.cookie.split('auth_token=')[1];
+            alert(data.message);
+        }
+
+        async function checkBoard() {
+            const res = await fetch('/board');
+            const data = await res.json();
+            const resultEl = document.getElementById('result');
+            if (data.flag) {
+                resultEl.innerHTML = `<span class="success">${data.msg}<br>Flag: ${data.flag}</span>`;
+            } else {
+                resultEl.innerText = data.msg;
+            }
+        }
+    </script>
+</body>
+</html>
