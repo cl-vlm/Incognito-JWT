@@ -50,12 +50,12 @@ app.get('/board', (req, res) => {
             if (payload.role === 'admin' && payload.bus_type === 'express_home') {
                 return res.json({ 
                     success: true, 
-                    msg: "프리미엄 급행 버스 탑승 성공! 정답을 획득했습니다.",
+                    msg: "프리미엄 급행 버스 탑승 성공하셨습니다. 편안하게 모실게요 ㅎㅎ",
                     // 코드를 봐도 FLAG 변수명만 보일 뿐, 실제 값은 알 수 없음
                     flag: process.env.FLAG 
                 });
             } else {
-                return res.json({ success: false, msg: "권한이 부족합니다. 관리자 계정만 급행을 탈 수 있습니다." });
+                return res.json({ success: false, msg: "권한 부족. 돌아가라 ㅋ" });
             }
         } 
 
